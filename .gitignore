@@ -1,5 +1,21 @@
+
+# Other gitignore
+.vscode
+*.exe
+bin
+obj
+.DS_Store
+#https://github.com/github/gitignore
+test
+*.db
+.env
+*.pem
+*.yml
+
+#--Start Terraform gitignore from github repo :
 # Local .terraform directories
 **/.terraform/*
+.terraform
 
 # .tfstate files
 *.tfstate
@@ -8,6 +24,7 @@
 # Crash log files
 crash.log
 crash.*.log
+*.log
 
 # Exclude all .tfvars files, which are likely to contain sensitive data, such as
 # password, private keys, and other secrets. These should not be part of version 
@@ -32,3 +49,84 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+#Version related file gets created with the command 'terraform init'
+.terraform.lock.hcl
+
+#--End Terraform gitignore from github repo :
+
+
+#--Start AWS CLI gitignore from github repo : https://github.com/aws
+*.py[co]
+*.DS_Store
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+var
+sdist
+develop-eggs
+.installed.cfg
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+coverage.xml
+nosetests.xml
+
+#Translations
+*.mo
+
+#Mr Developer
+.mr.developer.cfg
+
+# Emacs backup files
+*~
+
+# Eclipse IDE
+/.project
+/.pydevproject
+
+# IDEA IDE
+.idea*
+src/
+
+# CLI docs generation
+doc/source/aws_man_pages.json
+doc/source/reference
+doc/source/topic
+doc/source/tutorial/services.rst
+
+# Pyenv
+.python-version
+
+#--END AWS CLI gitignore from github repo : https://github.com/aws
+
+
+## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
+
+*.tar
+*.tar.*
+*.jar
+*.exe
+*.msi
+*.zip
+*.tgz
+*.log
+*.log.*
+*.sig
+
+pkg/
+src/
+
+
+test
+*.db
+.env
