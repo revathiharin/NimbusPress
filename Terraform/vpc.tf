@@ -3,7 +3,6 @@ resource "aws_vpc" "vpc" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_support   = true
   enable_dns_hostnames = true
-
   tags = {
     Name = "vpc ${var.tagNameDate}"
   }
@@ -17,46 +16,27 @@ resource "aws_internet_gateway" "igw" {
     Name = "igw ${var.tagNameDate}"
   }
 }
-/* 
-# Create Elastic IP
-resource "aws_eip" "nat_gateway" {
-  #vpc = true
-  
-  tags = {
-    Name = "eip ${var.tagNameDate}"
-  }
-}
-# Create NAT Gateway
-resource "aws_nat_gateway" "main" {
-  allocation_id = aws_eip.nat_gateway.id
-  subnet_id     = aws_subnet.public[0].id
-
-  tags = {
-    Name = "nat ${var.tagNameDate}"
-  }
-}
- */
 
 # Create Public Subnets
 resource "aws_subnet" "public" {
-  count                = length(var.public_subnet_cidr_blocks)
-  vpc_id               = aws_vpc.vpc.id
-  cidr_block           = var.public_subnet_cidr_blocks[count.index]
-  availability_zone    = var.availability_zones[count.index]
+  count                   = length(var.public_subnet_cidr_blocks)
+  vpc_id                  = aws_vpc.vpc.id
+  cidr_block              = var.public_subnet_cidr_blocks[count.index]
+  availability_zone       = var.availability_zones[count.index]
   map_public_ip_on_launch = true
 
   tags = {
     Name = "Public_Subnet ${var.tagNameDate}_${count.index + 1}"
-  }   
+  }
 
 }
 
 # Create Private Subnets
 resource "aws_subnet" "private" {
-  count                = length(var.private_subnet_cidr_blocks)
-  vpc_id               = aws_vpc.vpc.id
-  cidr_block           = var.private_subnet_cidr_blocks[count.index]
-  availability_zone    = var.availability_zones[count.index % length(var.availability_zones)]
+  count             = length(var.private_subnet_cidr_blocks)
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = var.private_subnet_cidr_blocks[count.index]
+  availability_zone = var.availability_zones[count.index % length(var.availability_zones)]
 
   tags = {
     Name = "Private_Subnet ${var.tagNameDate}_${count.index + 1}"
@@ -78,7 +58,7 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route_table" "private" {
-  count = length(var.availability_zones)
+  count  = length(var.availability_zones)
   vpc_id = aws_vpc.vpc.id
 
   tags = {
@@ -88,14 +68,14 @@ resource "aws_route_table" "private" {
 
 # Associate Public Subnets with Public Route Table
 resource "aws_route_table_association" "public_assoc" {
-  count        = length(var.public_subnet_cidr_blocks)
-  subnet_id    = aws_subnet.public[count.index].id
+  count          = length(var.public_subnet_cidr_blocks)
+  subnet_id      = aws_subnet.public[count.index].id
   route_table_id = aws_route_table.public.id
 }
 
 # Associate Private Subnets with Private Route Tables
 resource "aws_route_table_association" "private_assoc" {
-  count        = length(var.private_subnet_cidr_blocks)
-  subnet_id    = aws_subnet.private[count.index].id
+  count          = length(var.private_subnet_cidr_blocks)
+  subnet_id      = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private[count.index].id
 }

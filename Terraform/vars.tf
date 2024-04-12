@@ -55,4 +55,3 @@ variable "LabRoleARN" {
   description = "Lab Role"
   default     = "arn:aws:iam::891377082491:role/LabRole"
 }
-

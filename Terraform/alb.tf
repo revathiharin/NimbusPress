@@ -1,11 +1,11 @@
 resource "aws_lb" "wordpress_alb" {
   name               = "wordpress-alb"
-  internal           = false              # Set to true if the ALB should be internal
+  internal           = false # Set to true if the ALB should be internal
   load_balancer_type = "application"
-  subnets            = [aws_subnet.public[0].id, aws_subnet.public[1].id]       # Specify your public subnet(s) here
+  subnets            = [aws_subnet.public[0].id, aws_subnet.public[1].id] # Specify your public subnet(s) here
   security_groups    = [aws_security_group.wordpress_sg.id]
 
-  enable_deletion_protection = false      # Set to true to prevent accidental deletion
+  enable_deletion_protection = false # Set to true to prevent accidental deletion
 
   tags = {
     Name = "wordpress_alb ${var.tagNameDate}"

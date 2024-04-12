@@ -4,7 +4,6 @@ resource "aws_launch_configuration" "scaling_launch_config" {
   instance_type   = var.ec2_instance_type
   security_groups = ["${aws_security_group.wordpress_sg.id}"]
   key_name        = var.key_name
-  user_data       = filebase64(stress.sh)
 }
 
 resource "aws_autoscaling_group" "wordpress_autoscaling_group" {
@@ -13,6 +12,8 @@ resource "aws_autoscaling_group" "wordpress_autoscaling_group" {
     id      = aws_launch_template.scaling_launch_template.id
     version = "$Latest" #aws_launch_template.wordpress_launch_template.latest_version
   }
+
+  name                      = "wordpress-asg"
   min_size                  = 1
   max_size                  = 4
   desired_capacity          = 1
@@ -22,21 +23,19 @@ resource "aws_autoscaling_group" "wordpress_autoscaling_group" {
 
   tag {
     key                 = "Name"
-    value               = "Wordpress_Instance_AS ${var.tagNameDate}"
+    value               = "Wordpress_Instance_AS${var.tagNameDate}-"
     propagate_at_launch = true
   }
 }
 
 #Create a launch template
 resource "aws_launch_template" "scaling_launch_template" {
-  name_prefix   = "scaling_launch_template"
-  image_id      = data.aws_ami.amazon_linux.id
-  instance_type = var.ec2_instance_type
-
+  name_prefix            = "scaling_launch_template"
+  image_id               = data.aws_ami.amazon_linux.id
+  instance_type          = var.ec2_instance_type
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.wordpress_sg.id]
-
-  user_data = base64encode(data.template_file.userdataEC.rendered)
+  user_data              = base64encode(data.template_file.userdataEC.rendered)
 
   lifecycle {
     create_before_destroy = true
@@ -59,7 +58,7 @@ resource "aws_autoscaling_policy" "scale_out" {
     predefined_metric_specification {
       predefined_metric_type = "ASGAverageCPUUtilization"
     }
-    target_value = 60.0
+    target_value = 80.0
   }
 }
 resource "aws_autoscaling_policy" "scale_in" {
