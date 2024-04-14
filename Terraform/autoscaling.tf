@@ -61,7 +61,7 @@ resource "aws_autoscaling_policy" "scale_out" {
     target_value = 80.0
   }
 }
-resource "aws_autoscaling_policy" "scale_in" {
+/* resource "aws_autoscaling_policy" "scale_in" {
   name                   = "scale_in"
   adjustment_type        = "ChangeInCapacity"
   policy_type            = "TargetTrackingScaling"
@@ -73,4 +73,4 @@ resource "aws_autoscaling_policy" "scale_in" {
     }
     target_value = 30.0
   }
-}
+} */

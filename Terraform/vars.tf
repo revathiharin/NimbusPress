@@ -38,11 +38,9 @@ variable "key_name" {
 
 variable "rds_username" {
   description = "The username for the RDS instance"
-  default     = "admin"
 }
 variable "rds_password" {
   description = "The password for the RDS instance"
-  default     = "admin123"
   sensitive   = true
 }
 variable "rds_db_name" {
@@ -50,6 +48,10 @@ variable "rds_db_name" {
   default     = "wordpressDb"
 }
 
+# SNS email id variable
+variable "EMAIL_ID" {
+  description = "SNS email id"
+}
 # Role
 variable "LabRoleARN" {
   description = "Lab Role"
