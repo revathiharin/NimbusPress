@@ -27,8 +27,14 @@ resource "aws_lb_target_group" "Wordpress_target_group" {
 
 resource "aws_lb_target_group_attachment" "wordpress_target_group_attachment" {
   target_group_arn = aws_lb_target_group.Wordpress_target_group.arn
+  
   target_id        = aws_instance.wordpress_instance.id
   port             = 80
+}
+resource "aws_autoscaling_attachment" "name" {
+  autoscaling_group_name = aws_autoscaling_group.wordpress_autoscaling_group.id
+  lb_target_group_arn   = aws_lb_target_group.Wordpress_target_group.arn
+  
 }
 
 resource "aws_lb_listener" "wordpress_listener" {

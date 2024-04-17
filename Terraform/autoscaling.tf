@@ -16,8 +16,9 @@ resource "aws_autoscaling_group" "wordpress_autoscaling_group" {
   name                      = "wordpress-asg"
   min_size                  = 1
   max_size                  = 4
-  desired_capacity          = 1
+  desired_capacity          = 2
   vpc_zone_identifier       = [aws_subnet.public[0].id, aws_subnet.public[1].id] #var.private_subnet_cidr_blocks
+  target_group_arns         = [aws_lb_target_group.Wordpress_target_group.arn]
   health_check_type         = "ELB"
   health_check_grace_period = 300
 
@@ -60,17 +61,4 @@ resource "aws_autoscaling_policy" "scale_out" {
     }
     target_value = 80.0
   }
-}
-/* resource "aws_autoscaling_policy" "scale_in" {
-  name                   = "scale_in"
-  adjustment_type        = "ChangeInCapacity"
-  policy_type            = "TargetTrackingScaling"
-  autoscaling_group_name = aws_autoscaling_group.wordpress_autoscaling_group.name
-
-  target_tracking_configuration {
-    predefined_metric_specification {
-      predefined_metric_type = "ASGAverageCPUUtilization"
-    }
-    target_value = 30.0
-  }
-} */
+} 

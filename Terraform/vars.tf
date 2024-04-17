@@ -15,12 +15,12 @@ variable "availability_zones" {
 
 variable "public_subnet_cidr_blocks" {
   description = "CIDR blocks for public subnets"
-  default     = ["10.0.0.0/24", "10.0.1.0/24"] # Adjust as needed
+  default     = ["10.0.0.0/26", "10.0.0.64/26"] # Adjust as needed
 }
 
 variable "private_subnet_cidr_blocks" {
   description = "CIDR blocks for private subnets"
-  default     = ["10.0.2.0/24", "10.0.3.0/24"] # Adjust as needed
+  default     = ["10.0.0.128/26", "10.0.0.192/26"] # Adjust as needed
 }
 
 # EC2 Variables
