@@ -15,12 +15,12 @@ variable "availability_zones" {
 
 variable "public_subnet_cidr_blocks" {
   description = "CIDR blocks for public subnets"
-  default     = ["10.0.0.0/24", "10.0.1.0/24"] # Adjust as needed
+  default     = ["10.0.0.0/26", "10.0.0.64/26"] # Adjust as needed
 }
 
 variable "private_subnet_cidr_blocks" {
   description = "CIDR blocks for private subnets"
-  default     = ["10.0.2.0/24", "10.0.3.0/24"] # Adjust as needed
+  default     = ["10.0.0.128/26", "10.0.0.192/26"] # Adjust as needed
 }
 
 # EC2 Variables
@@ -38,11 +38,9 @@ variable "key_name" {
 
 variable "rds_username" {
   description = "The username for the RDS instance"
-  default     = "admin"
 }
 variable "rds_password" {
   description = "The password for the RDS instance"
-  default     = "admin123"
   sensitive   = true
 }
 variable "rds_db_name" {
@@ -50,9 +48,23 @@ variable "rds_db_name" {
   default     = "wordpressDb"
 }
 
+# SNS email id variable
+variable "EMAIL_ID" {
+  description = "SNS email id"
+}
 # Role
 variable "LabRoleARN" {
   description = "Lab Role"
   default     = "arn:aws:iam::891377082491:role/LabRole"
 }
 
+variable "tagNameDate" {
+  default = "2024-04-12"
+}
+
+
+#S3 bucket Name
+variable "s3_bucket_name" {
+  description = "Name of the S3 bucket"
+  default     = "s3-bucket"
+}
