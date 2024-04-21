@@ -55,3 +55,8 @@ variable "LabRoleARN" {
   description = "Lab Role"
   default     = "arn:aws:iam::891377082491:role/LabRole"
 }
+
+# SNS email id variable
+variable "EMAIL_ID" {
+  description = "SNS email id"
+}
