@@ -3,11 +3,11 @@
 
 ## Resilient and Scalable WordPress Solution
 
-![Architecture](.\Terraform\Pictures\Architecture.png)
+![Architecture](./Terraform/Pictures/Architecture.png)
 ### Overview
 This project aims to create a resilient and scalable WordPress solution on AWS by utilizing Terraform for infrastructure provisioning and Python for additional automation. The solution includes EC2 instances, an Application Load Balancer (ALB), an Auto Scaling Group (ASG), and Amazon Relational Database Service (RDS) to ensure high availability, scalability, and efficient resource management.
 
-[Presentation](.\Terraform\Presentation\TerraformProject.pdf)
+[Presentation](./Terraform/Presentation/TerraformProject.pdf)
 
 ### Project Setup
 - WordPress is set up with RDS MySQL as the database.
